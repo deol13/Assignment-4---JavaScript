@@ -1,18 +1,33 @@
 /*jshint esversion: 6 */
 
-var divMap = document.createElement("div");
-divMap.setAttribute("id", "map");
+document.addEventListener("DOMContentLoaded", creatingMap, false);
 
-document.body.appendChild(divMap);
 
-var idPart2 = -1;
-var idPart4 = -1;
 
-document.addEventListener("DOMContentLoaded", creatingMap);
+/*
+for(let i = 0; i < tileMap01.height; i++)
+{
+    for(let j = 0; j < tileMap01.width; j++)
+    {
+        var asd = checkForObjectsInMapArray(i, j);
+        console.log(i + "," + j + ": " + asd);
+    }
+}
+*/
+
+
+
+
 
 /*Because we loaded SokobanBase.js in the html file before this file, we can access its content directly.*/
 function creatingMap()
 { 
+    var divMap = document.createElement("div");
+    divMap.setAttribute("id", "map");
+    document.body.appendChild(divMap);
+    let idPart2 = -1;
+    let idPart4 = -1;
+
     for(let i = 0; i < tileMap01.height; i++)
     {
         for(let j = 0; j < tileMap01.width; j++)
@@ -20,8 +35,10 @@ function creatingMap()
             let whichBlock = checkForObjectsInMapArray(i, j);
 
             let div = document.createElement("div");
-            div = generateIds(div);
+            div = generateIds(div, idPart2, idPart4);
 
+            console.log(i + "," + j + ": " + whichBlock);
+            
             if(whichBlock !== null)
             {
                 div = generateClass(div, whichBlock);
@@ -36,40 +53,43 @@ function creatingMap()
     }
 }
 
-
 function checkForObjectsInMapArray(x, y)
 {
     let whichBlockFound = null;
 
-    if(tileMap01.mapGrid[x][y] === "W")
+    //console.log(tileMap01.mapGrid[x][y].toString());
+
+    if(tileMap01.mapGrid[x][y].toString() === "W")
     {
         whichBlockFound = "W";
     }
-    else if(tileMap01.mapGrid[x][y] === "B")
+    else if(tileMap01.mapGrid[x][y].toString()  === "B")
     {
         whichBlockFound = "B";
     }
-    else if(tileMap01.mapGrid[x][y] === "G")
+    else if(tileMap01.mapGrid[x][y].toString()  === "G")
     {
         whichBlockFound = "G";
     }
-    else if(tileMap01.mapGrid[x][y] === "P")
+    else if(tileMap01.mapGrid[x][y].toString()  === "P")
     {
         whichBlockFound = "P";
     }
 
+    
+
     return whichBlockFound;
 }
 
-function generateIds(tile)
+function generateIds(tile, idPart2, idPart4)
 {
     let idPart1 = "x";
     let idPart3 = "y";
 
-    if(idPart2 < mapMaxWidth){
-        idPart2++;
+    if(idPart4 < tileMap01.width){
+        idPart4++;
     }
-    if(idPart4 < mapMaxHeight){
+    if(idPart2 < tileMap01.height){
         idPart2++;
     }
 
@@ -107,7 +127,7 @@ function generateClass(div, whichBlock)
     }
 
     if(className !== null)
-        div.generateClass(className); 
+        div.setAttribute("class", className); 
 
     return div;
 }

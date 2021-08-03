@@ -1,3 +1,9 @@
+body{
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
 
 #map{
     display: grid;
@@ -6,24 +12,49 @@
     padding: 10px;                  
 }
 
+.tile-wall
+{
+    background-color: grey;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
 
-body > div > div{
+/*Nothing other than this one works*/
+.tile-space
+{
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
 }
 
-/*Add & color:
-.tile-wall{}
+.tile-goal
+{
+    background-color: rgb(255, 1, 1);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
 
-.tile-space{}
+.entity-player
+{
+    background-color: green;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
 
-.tile-goal{}
+.entity-block
+{
+    background-color: rgb(100, 48, 24);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
+/*
+.entity-block-goal
+{
 
-.entity-player{}
-
-.entity-block{}
-
-.entity-block-goal{}
+}
 */

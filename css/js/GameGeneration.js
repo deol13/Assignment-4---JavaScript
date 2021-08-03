@@ -1,32 +1,64 @@
 /*jshint esversion: 6 */
 
-/*var divMap = document.body.createElement("div");*/
 var divMap = document.createElement("div");
 divMap.setAttribute("id", "map");
 
 document.body.appendChild(divMap);
 
-var mapMaxHeight = 16;
-var mapMaxWidth = 19;
 var idPart2 = -1;
 var idPart4 = -1;
 
 document.addEventListener("DOMContentLoaded", creatingMap);
 
+/*Because we loaded SokobanBase.js in the html file before this file, we can access its content directly.*/
 function creatingMap()
-{
-    for(let i = 0; i < mapMaxHeight; i++)
+{ 
+    for(let i = 0; i < tileMap01.height; i++)
     {
-        for(let j = 0; j < mapMaxWidth; j++)
+        for(let j = 0; j < tileMap01.width; j++)
         {
-            let div = document.createElement("div");
+            let whichBlock = checkForObjectsInMapArray(i, j);
 
+            let div = document.createElement("div");
             div = generateIds(div);
+
+            if(whichBlock !== null)
+            {
+                div = generateClass(div, whichBlock);
+            }
+            else
+            {
+                div = generateClass(div, "Space");
+            }
 
             divMap.appendChild(div);
         }
     }
-    
+}
+
+
+function checkForObjectsInMapArray(x, y)
+{
+    let whichBlockFound = null;
+
+    if(tileMap01.mapGrid[x][y] === "W")
+    {
+        whichBlockFound = "W";
+    }
+    else if(tileMap01.mapGrid[x][y] === "B")
+    {
+        whichBlockFound = "B";
+    }
+    else if(tileMap01.mapGrid[x][y] === "G")
+    {
+        whichBlockFound = "G";
+    }
+    else if(tileMap01.mapGrid[x][y] === "P")
+    {
+        whichBlockFound = "P";
+    }
+
+    return whichBlockFound;
 }
 
 function generateIds(tile)
@@ -47,4 +79,35 @@ function generateIds(tile)
     tile.setAttribute("id", fullId);
 
     return tile;
+}
+
+function generateClass(div, whichBlock)
+{
+    let className = null;
+
+    switch(whichBlock)
+    {
+        case "W":
+            className = Tiles.Wall;
+            break;
+        case "B":
+            className = Entities.Block;
+            break;
+        case "P":
+            className = Entities.Character;
+            break;
+        case "G":
+            className = Tiles.Goal;
+            break;
+        case "Space":
+            className = Tiles.Space;
+            break;
+        default:
+            break;
+    }
+
+    if(className !== null)
+        div.generateClass(className); 
+
+    return div;
 }

@@ -1,5 +1,10 @@
-var divMap = document.createElement("div", );
-divMap.setAttribute("id", "map")
+/*jshint esversion: 6 */
+
+/*var divMap = document.body.createElement("div");*/
+var divMap = document.createElement("div");
+divMap.setAttribute("id", "map");
+
+document.body.appendChild(divMap);
 
 var mapMaxHeight = 16;
 var mapMaxWidth = 19;
@@ -14,7 +19,7 @@ function creatingMap()
     {
         for(let j = 0; j < mapMaxWidth; j++)
         {
-            let div = document.createElement("div")
+            let div = document.createElement("div");
 
             div = generateIds(div);
 

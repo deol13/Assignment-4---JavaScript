@@ -12,15 +12,7 @@ body{
     padding: 10px;                  
 }
 
-.tile-wall
-{
-    background-color: grey;
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-}
 
-/*Nothing other than this one works*/
 .tile-space
 {
     background-color: rgba(255, 255, 255, 0.8);
@@ -31,15 +23,23 @@ body{
 
 .tile-goal
 {
-    background-color: rgb(255, 1, 1);
+    background-color: gold;
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
 }
 
-.entity-player
+.entity-block-goal
 {
-    background-color: green;
+    background-color: rgb(255, 123, 0);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
+
+.tile-wall
+{
+    background-color: grey;
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
@@ -52,9 +52,11 @@ body{
     padding: 20px;
     font-size: 30px;
 }
-/*
-.entity-block-goal
-{
 
+.entity-player
+{
+    background-color: green;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
 }
-*/

@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", creatingMap, false);
 
 let idPart2 = -1;
 let idPart4 = -1;
+var playerPosX = 0;
+var playerPosY = 0;
 
 /*Because we loaded SokobanBase.js in the html file before this file, we can access its content directly.*/
 function creatingMap()
@@ -26,14 +28,12 @@ function creatingMap()
             newDiv = generateIds(newDiv);
             newDiv = getRightClassName(tileMap01.mapGrid[i][j][0], newDiv);
 
-            if(newDiv.classList.contains("Entities.Character"))
+            if(newDiv.classList.contains(Entities.Character))
             {
                 playerPosX = j;
                 playerPosY = i;
                 console.log("x: " + j + ", y: " + i)
             }
-
-            console.log(newDiv.classList.toString());
 
             divMap.appendChild(newDiv);
         }

@@ -8,8 +8,6 @@ var playerPosX = 0;
 var playerPosY = 0;
 var nrOfGoals = 0;
 
-//Add a reset button
-
 /*Because we loaded SokobanBase.js in the html file before this file, we can access its content directly.*/
 function creatingMap()
 { 

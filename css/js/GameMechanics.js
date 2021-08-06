@@ -28,36 +28,45 @@ document.addEventListener('keydown', (e) => {
 
 function checkCollison(changeInX, changeInY)
 {
-    var newPosId = getId(playerPosX + changeInX, playerPosY + changeInY)
+    var playerMoveToId = getId(playerPosX + changeInX, playerPosY + changeInY)
+    var playerMoveToElement = document.getElementById(playerMoveToId);
 
-    var element = document.getElementById(newPosId);
-
-    if(classContains(element, Entities.Block))
+    if(classContains(playerMoveToElement, Entities.Block))
     {
+        //changeInX & changeInY multiplied by 2 because we want to check the pos beyond the box. Where it tries to move to
         var moveBoxToID = getId(playerPosX + (changeInX*2), playerPosY + (changeInY*2));
         var elementMoveBoxTo = document.getElementById(moveBoxToID);
 
-        if(boxCanBeMovedTo(elementMoveBoxTo))
+        if(!classContains(elementMoveBoxTo, Tiles.Wall) && !classContains(elementMoveBoxTo, Entities.Block))
         {
+            //                               Box's old X pos         it's old Y pos
             moveObject(changeInX, changeInY, (playerPosX+changeInX), (playerPosY+changeInY), Entities.Block);
             movePlayer(changeInX, changeInY);
 
-            if(classContains(elementMoveBoxTo, Tiles.Goal))
-            {
-                changeClass(moveBoxToID, Entities.BlockDone, true);
-                didThePlayerWin();
-            }
-            if(classContains(element, Entities.BlockDone))
-            {
-                changeClass(newPosId, Entities.BlockDone, false);
-            } 
+            //                      Box old element,    it's old pos,   box new element,  it's new pos
+            checkIfBoxMovedToAGoal(playerMoveToElement, playerMoveToId, elementMoveBoxTo, moveBoxToID);
         }
     }
-    else if(classContains(element, Tiles.Space) || classContains(element, Tiles.Goal))
+    else if(classContains(playerMoveToElement, Tiles.Space) || classContains(playerMoveToElement, Tiles.Goal))
     {
         movePlayer(changeInX, changeInY);
     }
     //The last one is Wall but then nothing should happen.
+}
+
+function checkIfBoxMovedToAGoal(element, newPosId, elementMoveBoxTo, moveBoxToID)
+{
+    //If the box's old pos also had a goal on it, then we should removes its done class
+    if(classContains(element, Entities.BlockDone))
+    {
+        changeClass(newPosId, Entities.BlockDone, false);
+    }
+    //Is there a goal on the box's new pos? If so set the elements class to done
+    if(classContains(elementMoveBoxTo, Tiles.Goal))
+    {
+        changeClass(moveBoxToID, Entities.BlockDone, true);
+        didThePlayerWin();
+    }
 }
 
 function didThePlayerWin()
@@ -65,9 +74,9 @@ function didThePlayerWin()
     var count = 0;
     var element = document.getElementsByClassName(Tiles.Goal);
 
+    //Loops through all goals and check if they all a block on them
     for (let index = 0; index < nrOfGoals; index++) 
     {
-        console.log(element[index]);
         if(classContains(element[index], Entities.BlockDone))
         {
             count += classContains(element[index], Tiles.Goal) ? 1 : 0;
@@ -88,15 +97,6 @@ function movePlayer(changeInX, changeInY)
     playerPosY += changeInY;
 }
 
-function boxCanBeMovedTo(element)
-{
-    if(classContains(element, Tiles.Wall) || classContains(element, Entities.Block))
-    {
-        return false;
-    }
-    return true;
-}
-
 function classContains(element, what)
 {
     return element.classList.contains(what)
@@ -104,12 +104,14 @@ function classContains(element, what)
 
 function moveObject(changeInX, changeInY, currentX, currentY, ClassName)
 {
+    //Remove the specific class from the old pos
     var oldId = getId(currentX, currentY);
     changeClass(oldId, ClassName, false)
 
     var newX = currentX + changeInX;
     var newY = currentY + changeInY;
 
+    //Add the specific class to the new pos
     var newId = getId(newX, newY);
     changeClass(newId, ClassName, true);
 }
@@ -118,6 +120,7 @@ function changeClass(id, className, addName)
 {
     var element = document.getElementById(id);
 
+    //If true then add the class, if false, remove it
     if(addName)
         element.classList.add(className);
     else

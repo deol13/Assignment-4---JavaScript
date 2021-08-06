@@ -29,22 +29,6 @@ body{
     font-size: 30px;
 }
 
-.entity-block-goal
-{
-    background-color: rgb(255, 123, 0);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-}
-
-.tile-wall
-{
-    background-color: grey;
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-}
-
 .entity-block
 {
     background-color: rgb(100, 48, 24);
@@ -53,9 +37,25 @@ body{
     font-size: 30px;
 }
 
+.entity-block-goal
+{
+    background-color: rgb(255, 123, 0);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
+
 .entity-player
 {
     background-color: green;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+}
+
+.tile-wall
+{
+    background-color: grey;
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;

@@ -6,6 +6,9 @@ let idPart2 = -1;
 let idPart4 = -1;
 var playerPosX = 0;
 var playerPosY = 0;
+var nrOfGoals = 0;
+
+//Add a reset button
 
 /*Because we loaded SokobanBase.js in the html file before this file, we can access its content directly.*/
 function creatingMap()
@@ -32,7 +35,6 @@ function creatingMap()
             {
                 playerPosX = j;
                 playerPosY = i;
-                console.log("x: " + j + ", y: " + i)
             }
 
             divMap.appendChild(newDiv);
@@ -41,10 +43,6 @@ function creatingMap()
     }
 }
 
-//BlockDone: "entity-block-goal" should be set to blocks  that are inside a goal and change their color. You can still move them.
-
-//Remake to switch, send in tileMap01.mapGrid[y][x][0] as an argument so I only have content as parameter
-//key = content which should contain a string
 function getRightClassName(typeOfBlock, element)
 {
     let className = null;
@@ -60,6 +58,7 @@ function getRightClassName(typeOfBlock, element)
             break;
         case 'G':
             className = Tiles.Goal;
+            nrOfGoals++;
             break;
         case 'P':
             className = Entities.Character;
